@@ -59,9 +59,22 @@ void Level::Draw(sf::RenderTarget& _Target)
 
 }
 
+
 void Level::Update(sf::Time _FrameTime)
 {
-	//TODO
+	//Y = rows
+	for (int y = 0; y < m_Contents.size(); ++y)
+	{
+		//X = Cells
+		for (int x = 0; x < m_Contents[y].size(); ++x)
+		{
+			//Z = stickoutty(GridObjects)
+			for (int z = 0; z < m_Contents[y][x].size(); ++z)
+			{
+				m_Contents[y][x][z]->Update(_FrameTime);
+			}
+		}
+	}
 }
 
 void Level::Input(sf::Event _GameEvent)
@@ -251,4 +264,27 @@ bool Level::MoveObjectTo(GridObject* _ToMove, sf::Vector2i _TargetPos)
 	}
 	//return failure
 	return false;
+}
+
+std::vector<GridObject* > Level::GetObjectAt(sf::Vector2i _TargetPos)
+{
+	//don't trust the data
+	//make sure the data is valid
+	//=also make sure the coordinates are within the vector slice
+
+	if (_TargetPos.y >= 0 && _TargetPos.y < m_Contents.size()
+		&& _TargetPos.x >= 0 && _TargetPos.x < m_Contents[_TargetPos.y].size())
+	{
+
+		//get the contents
+		//return them
+		return m_Contents[_TargetPos.y][_TargetPos.x];
+
+	}
+
+	//default return
+	//return an empty vector wih nothing in it
+	//(Default constructor)
+	return std::vector<GridObject*>();
+
 }
