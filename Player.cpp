@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Framework/AssetManager.h"
 #include "Level.h"
+#include "Boulder.h"
 
 Player::Player()
 	: GridObject()
@@ -87,8 +88,8 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 {
 	// Attempt to move in the given direction
 
-		//get the current position
-		//calculate the target position
+	//get the current position
+	//calculate the target position
 	sf::Vector2i TargetPos = m_GridPosition + _Direction;
 
 	// check if the space is empty
@@ -97,23 +98,51 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 
 	// check if any of those objects block movement
 	bool blocked = false;
+	GridObject* blocker = nullptr;
 	for (int i = 0; i < TargetCellContents.size(); ++i)
 	{
 		if (TargetCellContents[i]->GetBlockedMovement() == true)
 		{
 			blocked = true;
+			blocker = TargetCellContents[i];
 		}
-	}
-
-	if (blocked == true)
-	{
-		m_BumpSound.play();
+		else
+		{
+			m_Level->DeleteObject(TargetCellContents[i]);
+		}
 	}
 
 	//if empty, move there
 	if (blocked == false)
 	{
 		return m_Level->MoveObjectTo(this, TargetPos);
+	}
+	else
+	{
+		//we were blocked!
+		//can we push whatever blocked us?
+		//do a dynamic cast to a box to see if we can push it
+		Boulder* rock = dynamic_cast<Boulder*>(blocker);
+
+		//if so(the thing is a box(not nullptr))
+		if (rock != nullptr)
+		{
+			//if so attempt to push
+			bool pushSucceeded = rock->AttemptPush(_Direction);
+			//if push succeeded
+
+			if (pushSucceeded == true)
+			{
+				//move to new spot(where blocker was)
+				return m_Level->MoveObjectTo(this, TargetPos);
+			}
+
+		}
+
+	}
+	if (blocked == true)
+	{
+		m_BumpSound.play();
 	}
 	//if movement is blocked, do nothing, return false
 	return false;

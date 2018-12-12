@@ -123,6 +123,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Boulder.cpp" />
+    <ClCompile Include="Diamond.cpp" />
+    <ClCompile Include="Exit.cpp" />
     <ClCompile Include="Framework\Animation.cpp" />
     <ClCompile Include="Framework\AnimationSystem.cpp" />
     <ClCompile Include="Framework\AssetManager.cpp" />
@@ -132,10 +135,14 @@
     <ClCompile Include="GridObject.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Mud.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Boulder.h" />
+    <ClInclude Include="Diamond.h" />
+    <ClInclude Include="Exit.h" />
     <ClInclude Include="Framework\Animation.h" />
     <ClInclude Include="Framework\AnimationSystem.h" />
     <ClInclude Include="Framework\AssetManager.h" />
@@ -144,6 +151,7 @@
     <ClInclude Include="Framework\TextObject.h" />
     <ClInclude Include="GridObject.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="Mud.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>

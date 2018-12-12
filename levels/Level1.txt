@@ -1,9 +1,9 @@
 W W W W W W W W W W W W W W W W 
-W P - B W W - - - W W - - - - W
-W D - - W W B - - W W - - B - W
-W - - - - - - B - B B - - D - W
-W D - - - D D D D - - - - B - W
-W - - - - - - B - - B - - - - W
-W - B - W W - - - W W B D - - W
-W - - - W W - - - W W - - - E W
+W P M B W W M M M W W M M M M W
+W D M M W W B M M W W M M B M W
+W M M M M M M B M B B M M D M W
+W D M M M D D D D M M M M B M W
+W M M M M M M B M M B M M M M W
+W M B M W W M M M W W B D M M W
+W M M M W W M M M W W M M M E W
 W W W W W W W W W W W W W W W W 

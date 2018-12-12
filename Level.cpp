@@ -3,6 +3,10 @@
 #include "Framework/AssetManager.h"
 #include "Wall.h"
 #include "Player.h"
+#include "Mud.h"
+#include "Diamond.h"
+#include "Boulder.h"
+#include "Exit.h"
 
 //library includes
 #include <iostream>
@@ -184,12 +188,50 @@ void Level::LoadLevel(int _LevelToLoad)
 			}
 			 else if (ch =='W')
 			 {
+				 //if it is a wall
 				 Wall* wall = new Wall();
 				 wall->SetLevel(this);
 				 wall->SetGridPosition(x, y);
 				 m_Contents[y][x].push_back(wall);
 
 			 }
+			 else if (ch == 'M')
+			 {
+				 //if it is some mud
+				 Mud* mud = new Mud();
+				 mud->SetLevel(this);
+				 mud->SetGridPosition(x, y);
+				 m_Contents[y][x].push_back(mud);
+
+			 }
+			 else if (ch == 'D')
+			 {
+				 //if it is a diamond
+				 Diamond* diamond = new Diamond();
+				 diamond->SetLevel(this);
+				 diamond->SetGridPosition(x, y);
+				 m_Contents[y][x].push_back(diamond);
+
+			 }
+			 else if (ch == 'B')
+			 {
+				 //if it is a boulder
+				 Boulder* boulder = new Boulder();
+				 boulder->SetLevel(this);
+				 boulder->SetGridPosition(x, y);
+				 m_Contents[y][x].push_back(boulder);
+
+			 }
+			 else if (ch == 'E')
+			 {
+				 //if it is a Exit
+				 Exit* exit = new Exit();
+				 exit->SetLevel(this);
+				 exit->SetGridPosition(x, y);
+				 m_Contents[y][x].push_back(exit);
+
+			 }
+
 			 else if (ch == 'P')
 			 {
 				 //if it is a Player
@@ -257,6 +299,38 @@ bool Level::MoveObjectTo(GridObject* _ToMove, sf::Vector2i _TargetPos)
 
 			//tell the object it's new position
 			_ToMove->SetGridPosition(_TargetPos);
+
+			//return success
+			return true;
+		}
+	}
+	//return failure
+	return false;
+}
+
+bool Level::DeleteObject(GridObject* _Todelete)
+{
+	//don't trust other code make sure _ToMove is a valid pointer 
+	//also check our target position is within the grid
+	if (_Todelete != nullptr)
+	{
+		//get the current position of the grid object
+		sf::Vector2i OldPos = _Todelete->GetGridPosition();
+
+		// find the object in the list
+		//using an iterator and the "find" method
+		auto it = std::find(m_Contents[OldPos.y][OldPos.x].begin(),
+			m_Contents[OldPos.y][OldPos.x].end(),
+			_Todelete);
+
+		//if we found the object at this location,
+		//it will NOT equal the end of the vector
+		if (it != m_Contents[OldPos.y][OldPos.x].end())
+		{
+			//we found the object!
+
+			//remove it from the old position
+			m_Contents[OldPos.y][OldPos.x].erase(it);
 
 			//return success
 			return true;
