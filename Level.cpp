@@ -332,6 +332,9 @@ bool Level::DeleteObject(GridObject* _Todelete)
 			//remove it from the old position
 			m_Contents[OldPos.y][OldPos.x].erase(it);
 
+			//delete the pointer
+			delete(_Todelete);
+
 			//return success
 			return true;
 		}
