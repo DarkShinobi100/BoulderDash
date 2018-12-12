@@ -2,6 +2,7 @@
 #include "Boulder.h"
 #include "Framework/AssetManager.h"
 #include "Level.h"
+#include "Mud.h"
 
 Boulder::Boulder()
 	: GridObject()
@@ -28,10 +29,14 @@ bool Boulder::AttemptPush(sf::Vector2i _direction)
 	bool blocked = false;
 	for (int i = 0; i < TargetCellContents.size(); ++i)
 	{
-		if (TargetCellContents[i]->GetBlockedMovement() == true)
+		//check if blocker is mud
+		Mud* mudBlocker = dynamic_cast<Mud*>(TargetCellContents[i]);
+		blocked = mudBlocker != nullptr;
+		if (blocked==true)
 		{
-			blocked = true;
+			return false;
 		}
+
 	}
 
 	//if empty, move there
@@ -40,6 +45,4 @@ bool Boulder::AttemptPush(sf::Vector2i _direction)
 		m_PushSound.play();
 		return m_Level->MoveObjectTo(this, TargetPos);
 	}
-	//if movement is blocked, do nothing, return false
-	return false;
 }

@@ -8,5 +8,4 @@ class Mud : public GridObject
 
 public:
 	Mud();
-
 };

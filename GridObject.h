@@ -28,6 +28,4 @@ protected:
 	sf::Vector2i m_GridPosition;
 	Level* m_Level;
 	bool m_BlocksMovement;
-
-
 };
