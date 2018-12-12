@@ -13,14 +13,14 @@ Exit::Exit()
 
 void Exit::Update(sf::Time _FrameTime)
 {
-	if (m_Player != nullptr)
-	{
+	//if (m_Player != nullptr)
+	//{
 
-	}
-	else
-	{
-		std::cout << "no pointer to player";
-	}
+	//}
+	//else
+	//{
+	//	std::cout << "no pointer to player";
+	//}
 }
 
 void Exit::Collide(GameObject& _Collider)
