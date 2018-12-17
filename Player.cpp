@@ -4,6 +4,7 @@
 #include "Level.h"
 #include "Boulder.h"
 #include "Mud.h"
+#include "Diamond.h"
 
 Player::Player()
 	: GridObject()
@@ -14,7 +15,6 @@ Player::Player()
 	m_Sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandDown.png"));
 	m_WalkSound.setBuffer(AssetManager::GetSoundBuffer("audio/footstep1.ogg"));
 	m_BumpSound.setBuffer(AssetManager::GetSoundBuffer("audio/bump.wav"));
-
 }
 
 void Player::Input(sf::Event _GameEvent)
@@ -144,8 +144,18 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 				//move to the new spot(where mud was)
 				m_Level->DeleteObject(blocker);
 				return m_Level->MoveObjectTo(this, TargetPos);
+		}
 
+		//OR is it a diamond?
+		Diamond* Gem = dynamic_cast<Diamond*>(blocker);
 
+		//if so(the thing is a boulder(not nullptr))
+		if (Gem != nullptr)
+		{	//TODO increase score
+
+			//move to the new spot(where mud was)
+			m_Level->DeleteObject(blocker);
+			return m_Level->MoveObjectTo(this, TargetPos);
 		}
 
 	}

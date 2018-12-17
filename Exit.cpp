@@ -8,6 +8,8 @@ Exit::Exit()
 
 {
 	m_Sprite.setTexture(AssetManager::GetTexture("graphics/DoorClosed.png"));
+	m_BlocksMovement = true;
+
 }
 
 

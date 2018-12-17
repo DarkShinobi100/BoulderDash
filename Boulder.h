@@ -10,7 +10,14 @@ public:
 	Boulder();
 
 	bool AttemptPush(sf::Vector2i _direction);
+	//overriding method
+	void Update(sf::Time _FrameTime);
 
+private:
+
+	bool AttemptMove(sf::Vector2i _Direction);
+
+	//data
 private:
 	sf::Sound m_PushSound;
 };
