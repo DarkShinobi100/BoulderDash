@@ -15,7 +15,7 @@ Boulder::Boulder()
 
 bool Boulder::AttemptPush(sf::Vector2i _direction)
 {
-	//attempt to move the box in the given direction
+	//attempt to move the boulder in the given direction
 
 	//get the current position
 	//calculate the target position
@@ -27,22 +27,24 @@ bool Boulder::AttemptPush(sf::Vector2i _direction)
 
 	// check if any of those objects block movement
 	bool blocked = false;
+	GridObject* blocker = nullptr;
 	for (int i = 0; i < TargetCellContents.size(); ++i)
 	{
-		//check if blocker is mud
-		Mud* mudBlocker = dynamic_cast<Mud*>(TargetCellContents[i]);
-		blocked = mudBlocker != nullptr;
-		if (blocked==true)
+		if (TargetCellContents[i]->GetBlockedMovement() == true)
 		{
-			return false;
+			blocked = true;
+			blocker = TargetCellContents[i];
 		}
-
 	}
 
 	//if empty, move there
 	if (blocked == false)
 	{
-		m_PushSound.play();
 		return m_Level->MoveObjectTo(this, TargetPos);
+	}
+	else
+	{
+		//if movement is blocked, do nothing, return false
+		return false;
 	}
 }

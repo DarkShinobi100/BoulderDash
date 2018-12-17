@@ -3,6 +3,7 @@
 #include "Framework/AssetManager.h"
 #include "Level.h"
 #include "Boulder.h"
+#include "Mud.h"
 
 Player::Player()
 	: GridObject()
@@ -106,10 +107,6 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 			blocked = true;
 			blocker = TargetCellContents[i];
 		}
-		else
-		{
-			m_Level->DeleteObject(TargetCellContents[i]);
-		}
 	}
 
 	//if empty, move there
@@ -124,7 +121,7 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 		//do a dynamic cast to a box to see if we can push it
 		Boulder* rock = dynamic_cast<Boulder*>(blocker);
 
-		//if so(the thing is a box(not nullptr))
+		//if so(the thing is a boulder(not nullptr))
 		if (rock != nullptr)
 		{
 			//if so attempt to push
@@ -136,6 +133,18 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 				//move to new spot(where blocker was)
 				return m_Level->MoveObjectTo(this, TargetPos);
 			}
+
+		}
+		//OR is it some mud?
+		Mud* Dirt = dynamic_cast<Mud*>(blocker);
+
+		//if so(the thing is a boulder(not nullptr))
+		if (Dirt != nullptr)
+		{
+				//move to the new spot(where mud was)
+				m_Level->DeleteObject(blocker);
+				return m_Level->MoveObjectTo(this, TargetPos);
+
 
 		}
 
