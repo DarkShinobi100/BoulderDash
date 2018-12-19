@@ -9,10 +9,12 @@ class Diamond : public GridObject
 public:
 	Diamond();
 	//overriding method
-	void Update(sf::Time _FrameTime);
+	void GridUpdate();
+
+	bool ClearUnder(sf::Vector2i _Direction);
 
 private:
 
-	bool AttemptMove(sf::Vector2i _Direction);
+	bool AttemptFall(sf::Vector2i _Direction);
 
 };

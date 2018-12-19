@@ -8,7 +8,7 @@
 Boulder::Boulder()
 	: GridObject()
 	, m_PushSound()
-	, m_SkipMove()
+	, m_SkipMove(false)
 {
 	m_Sprite.setTexture(AssetManager::GetTexture("graphics/boulder.png"));
 	m_BlocksMovement = true;
@@ -51,19 +51,20 @@ void Boulder::GridUpdate()
 {
 	if (ClearUnder(sf::Vector2i(0, 1)))
 	{
-
+		//if skip move is true check this
 		if (m_SkipMove)
 		{
+			//Call the AttemptFall function
+			//move in that direction
+			bool MoveSuccessful = AttemptFall(sf::Vector2i(0, 1));
 			m_SkipMove = false;
-			return;
-
 		}
-		//Call the AttemptFall function
-		//move in that direction
-		bool MoveSuccessful = AttemptFall(sf::Vector2i(0, 1));
+		else
+		{
+			//else skip move
+			m_SkipMove = true;
+		}
 
-		//Now that Enemy has moved, set skipMove to true to skip next move.
-		m_SkipMove = true;
 	}
 
 }
@@ -81,15 +82,34 @@ bool Boulder::ClearUnder(sf::Vector2i _Direction)
 
 	// check if any of those objects block movement
 	bool blocked = false;
+	GridObject* blocker = nullptr;
 	for (int i = 0; i < TargetCellContents.size(); ++i)
 	{
 		if (TargetCellContents[i]->GetBlockedMovement() == true)
 		{
-			return false;
-			
+			blocked = true;
+			blocker = TargetCellContents[i];
 		}
 	}
-	return true;
+	//if empty, move there
+	if (blocked == false)
+	{
+		return true;
+	}
+	else
+	{
+		//is it a player?
+		Player* player = dynamic_cast<Player*>(blocker);
+
+		//if so(the thing is a player(not nullptr))
+		if (player != nullptr)
+		{	
+			return true;
+		}
+		//if movement is blocked, do nothing, return false
+		return false;
+	}
+
 }
 
 
