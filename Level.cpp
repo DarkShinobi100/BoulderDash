@@ -310,7 +310,7 @@ bool Level::MoveObjectTo(GridObject* _ToMove, sf::Vector2i _TargetPos)
 
 bool Level::DeleteObject(GridObject* _Todelete)
 {
-	//don't trust other code make sure _ToMove is a valid pointer 
+	//don't trust other code make sure _Todelete is a valid pointer 
 	//also check our target position is within the grid
 	if (_Todelete != nullptr)
 	{
