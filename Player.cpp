@@ -149,12 +149,14 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 		//OR is it a diamond?
 		Diamond* Gem = dynamic_cast<Diamond*>(blocker);
 
-		//if so(the thing is a boulder(not nullptr))
+		//if so(the thing is a Diamond(not nullptr))
 		if (Gem != nullptr)
 		{	//TODO increase score
 
-			//move to the new spot(where mud was)
+			//move to the new spot(where diamond was)
 			m_Level->DeleteObject(blocker);
+			//check if the level is complete
+			m_Level->CheckComplete();
 			return m_Level->MoveObjectTo(this, TargetPos);
 		}
 
