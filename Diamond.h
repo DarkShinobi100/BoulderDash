@@ -17,4 +17,7 @@ private:
 
 	bool AttemptFall(sf::Vector2i _Direction);
 
+	//data
+private:
+	bool m_SkipMove;
 };
