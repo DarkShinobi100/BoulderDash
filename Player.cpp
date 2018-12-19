@@ -37,6 +37,7 @@ void Player::Input(sf::Event _GameEvent)
 			//move up
 			m_PendingMove = sf::Vector2i(0, -1);
 			m_Sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandUp.png"));
+			m_Level->GridUpdate();
 
 		}
 		else if (_GameEvent.key.code == sf::Keyboard::A || _GameEvent.key.code == sf::Keyboard::Left)
@@ -45,6 +46,7 @@ void Player::Input(sf::Event _GameEvent)
 			//move left
 			m_PendingMove = sf::Vector2i(-1, 0);
 			m_Sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandLeft.png"));
+			m_Level->GridUpdate();
 
 		}
 		else if (_GameEvent.key.code == sf::Keyboard::S || _GameEvent.key.code == sf::Keyboard::Down)
@@ -53,6 +55,7 @@ void Player::Input(sf::Event _GameEvent)
 			//move down
 			m_PendingMove = sf::Vector2i(0, 1);
 			m_Sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandDown.png"));
+			m_Level->GridUpdate();
 
 		}
 		else if (_GameEvent.key.code == sf::Keyboard::D || _GameEvent.key.code == sf::Keyboard::Right)
@@ -61,6 +64,7 @@ void Player::Input(sf::Event _GameEvent)
 			//move Right
 			m_PendingMove = sf::Vector2i(1, 0);
 			m_Sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandRight.png"));
+			m_Level->GridUpdate();
 
 		}
 	}

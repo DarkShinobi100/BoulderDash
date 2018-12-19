@@ -37,3 +37,8 @@ bool GridObject::GetBlockedMovement()
 {
 	return m_BlocksMovement;
 }
+
+void GridObject::GridUpdate()
+{
+
+}

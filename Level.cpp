@@ -91,6 +91,26 @@ void Level::Update(sf::Time _FrameTime)
 	}
 }
 
+void Level::GridUpdate()
+{
+	//Y = rows
+	//count from bottom to top of the screen so gravity works!
+	for (int y = m_Contents.size()-1; y >= 0; --y)
+	{
+		//X = Cells
+		for (int x = 0; x < m_Contents[y].size(); ++x)
+		{
+			//Z = stickoutty(GridObjects)
+			for (int z = 0; z < m_Contents[y][x].size(); ++z)
+			{
+				//call grid update on the kids
+				m_Contents[y][x][z]->GridUpdate();
+			}
+		}
+	}
+}
+
+
 void Level::Input(sf::Event _GameEvent)
 {
 	//Y = rows

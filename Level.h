@@ -14,6 +14,7 @@ public:
 
 	void Draw(sf::RenderTarget& _Target);
 	void Update(sf::Time _FrameTime);
+	void GridUpdate();
 	void Input(sf::Event _GameEvent);
 
 	void LoadLevel(int _LevelToLoad);

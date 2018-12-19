@@ -8,6 +8,7 @@
 Boulder::Boulder()
 	: GridObject()
 	, m_PushSound()
+	, m_SkipMove()
 {
 	m_Sprite.setTexture(AssetManager::GetTexture("graphics/boulder.png"));
 	m_BlocksMovement = true;
@@ -46,12 +47,51 @@ bool Boulder::AttemptPush(sf::Vector2i _direction)
 	
 }
 
-void Boulder::Update(sf::Time _FrameTime)
+void Boulder::GridUpdate()
 {
+	if (ClearUnder(sf::Vector2i(0, 1)))
+	{
 
+		if (m_SkipMove)
+		{
+			m_SkipMove = false;
+			return;
+
+		}
+		//Call the AttemptFall function
 		//move in that direction
-		bool MoveSuccessful = AttemptFall(sf::Vector2i(0,1));
+		bool MoveSuccessful = AttemptFall(sf::Vector2i(0, 1));
+
+		//Now that Enemy has moved, set skipMove to true to skip next move.
+		m_SkipMove = true;
+	}
+
 }
+bool Boulder::ClearUnder(sf::Vector2i _Direction)
+{
+	// Attempt to move in the given direction
+
+	//get the current position
+	//calculate the target position
+	sf::Vector2i TargetPos = m_GridPosition + _Direction;
+
+	// check if the space is empty
+	// get list of  objects in our target position
+	std::vector<GridObject*> TargetCellContents = m_Level->GetObjectAt(TargetPos);
+
+	// check if any of those objects block movement
+	bool blocked = false;
+	for (int i = 0; i < TargetCellContents.size(); ++i)
+	{
+		if (TargetCellContents[i]->GetBlockedMovement() == true)
+		{
+			return false;
+			
+		}
+	}
+	return true;
+}
+
 
 bool Boulder::AttemptFall(sf::Vector2i _Direction)
 {
