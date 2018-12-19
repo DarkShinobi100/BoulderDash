@@ -26,6 +26,9 @@ public:
 	std::vector<GridObject* > GetObjectAt(sf::Vector2i _TargetPos);
 
 	bool CheckComplete();
+	bool LevelComplete();
+
+	bool GetDoorOpen();
 
 private:
 
@@ -34,4 +37,5 @@ private:
 	int m_PendingLevel;
 	std::vector< std::vector < sf::Sprite > > m_Background;
 	std::vector< std::vector < std::vector< GridObject* > > > m_Contents;
+	bool m_DoorOpen;
 };

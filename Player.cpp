@@ -5,6 +5,7 @@
 #include "Boulder.h"
 #include "Mud.h"
 #include "Diamond.h"
+#include "Exit.h"
 
 Player::Player()
 	: GridObject()
@@ -138,7 +139,7 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 		//OR is it some mud?
 		Mud* Dirt = dynamic_cast<Mud*>(blocker);
 
-		//if so(the thing is a boulder(not nullptr))
+		//if so(the thing is a mud(not nullptr))
 		if (Dirt != nullptr)
 		{
 				//move to the new spot(where mud was)
@@ -158,6 +159,19 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 			//check if the level is complete
 			m_Level->CheckComplete();
 			return m_Level->MoveObjectTo(this, TargetPos);
+		}
+		//OR is it the exit
+		Exit* Door = dynamic_cast<Exit*>(blocker);
+
+		//if so(the thing is the Exit(not nullptr))
+		if (Door != nullptr)
+		{
+			//check if it is open
+			if (m_Level->LevelComplete())
+			{
+				//go there and finish the level
+				return m_Level->MoveObjectTo(this, TargetPos);
+			}
 		}
 
 	}

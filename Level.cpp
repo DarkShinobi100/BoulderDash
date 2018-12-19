@@ -18,6 +18,7 @@ Level::Level()
 	, m_PendingLevel(0)
 	,m_Background()
 	,m_Contents()
+	,m_DoorOpen(false)
 {
 	LoadLevel(1);
 }
@@ -410,15 +411,36 @@ bool Level::CheckComplete()
 
 	// all diamonds are deleted
 	//so we completed the level!
+	//but must touch the exit first
 
 	// play victory music
 	//m_winSound.play();
 
-	//queue the next level to load during the next update
-	//if you do it immidately, 
-	//there is an access violation due to update still running
-	m_PendingLevel = m_CurrentLevel + 1;
+	//change Exit sprite via setting m_doorOpen to true
+	m_DoorOpen = true;
 
 	// the level is complete so return true
 	return true;
+}
+
+bool Level::LevelComplete()
+{
+	if (m_DoorOpen)
+	{
+	//level complete!!
+	//queue the next level to load during the next update
+	//if you do it immidately, 
+	//there is an access violation due to update still running
+		m_PendingLevel = m_CurrentLevel + 1;
+		m_DoorOpen = false;
+		return true;
+
+	}
+	return false;
+}
+
+
+bool Level::GetDoorOpen()
+{
+	return m_DoorOpen;
 }
