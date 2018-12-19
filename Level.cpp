@@ -19,6 +19,7 @@ Level::Level()
 	,m_Background()
 	,m_Contents()
 	,m_DoorOpen(false)
+	, m_Score(0)
 {
 	LoadLevel(1);
 }
@@ -287,6 +288,7 @@ void Level::ReloadLevel()
 {
 	//set pending level to the current one when we want to reset on death
 	m_PendingLevel = m_CurrentLevel;
+	m_Score = 0;
 }
 
 void Level::LoadNextLevel()
@@ -417,6 +419,7 @@ bool Level::CheckComplete()
 				if (Gem != nullptr)
 				{
 					//it WAS a Diamond!
+					m_Score = m_Score + 5;
 
 					//if a diamond exists
 					//leave
@@ -460,8 +463,12 @@ bool Level::LevelComplete()
 	return false;
 }
 
-
 bool Level::GetDoorOpen()
 {
 	return m_DoorOpen;
+}
+
+int Level::GetScore()
+{
+	return m_Score;
 }

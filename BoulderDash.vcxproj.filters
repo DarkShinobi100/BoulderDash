@@ -66,6 +66,9 @@
     <ClCompile Include="Exit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Startscreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Animation.h">
@@ -108,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Exit.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Startscreen.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

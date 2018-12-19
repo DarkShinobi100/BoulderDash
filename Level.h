@@ -30,6 +30,7 @@ public:
 	bool LevelComplete();
 
 	bool GetDoorOpen();
+	int GetScore();
 
 private:
 
@@ -39,4 +40,6 @@ private:
 	std::vector< std::vector < sf::Sprite > > m_Background;
 	std::vector< std::vector < std::vector< GridObject* > > > m_Contents;
 	bool m_DoorOpen;
+	int m_Score;
+	
 };
