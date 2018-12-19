@@ -265,7 +265,8 @@ void Level::LoadLevel(int _LevelToLoad)
 
 void Level::ReloadLevel()
 {
-	LoadLevel(m_CurrentLevel);
+	//set pending level to the current one when we want to reset on death
+	m_PendingLevel = m_CurrentLevel;
 }
 
 void Level::LoadNextLevel()

@@ -15,7 +15,7 @@ public:
 
 private:
 
-	bool AttemptMove(sf::Vector2i _Direction);
+	bool AttemptFall(sf::Vector2i _Direction);
 
 	//data
 private:

@@ -13,6 +13,7 @@ Player::Player()
 	, m_WalkSound()
 	, m_BumpSound()
 {
+	m_BlocksMovement = true;
 	m_Sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandDown.png"));
 	m_WalkSound.setBuffer(AssetManager::GetSoundBuffer("audio/footstep1.ogg"));
 	m_BumpSound.setBuffer(AssetManager::GetSoundBuffer("audio/bump.wav"));
