@@ -7,6 +7,7 @@
 #include "Diamond.h"
 #include "Boulder.h"
 #include "Exit.h"
+#include "ResetButton.h"
 
 //library includes
 #include <iostream>
@@ -14,13 +15,16 @@
 
 Level::Level()
 	:m_CellSize(64.0f)
+	,m_BGM()
 	,m_CurrentLevel(0)
-	, m_PendingLevel(0)
+	,m_PendingLevel(0)
 	,m_Background()
 	,m_Contents()
 	,m_DoorOpen(false)
-	, m_Score(0)
+	,m_Score(0)
 {
+	m_BGM.setBuffer(AssetManager::GetSoundBuffer("audio/BGM.ogg"));
+	m_BGM.setLoop(true);
 	LoadLevel(1);
 }
 
@@ -156,6 +160,14 @@ void Level::LoadLevel(int _LevelToLoad)
 	//set the current level
 	m_CurrentLevel = _LevelToLoad;
 
+
+	if (m_CurrentLevel == 1)
+	{
+
+		//start music
+		m_BGM.play();
+	}
+
 	//-=Set up the new level=-
 
 	// Open our file for reading
@@ -281,7 +293,6 @@ void Level::LoadLevel(int _LevelToLoad)
 
 	//close the file now that were done with it
 	inFile.close();
-
 	}
 
 void Level::ReloadLevel()
@@ -289,6 +300,11 @@ void Level::ReloadLevel()
 	//set pending level to the current one when we want to reset on death
 	m_PendingLevel = m_CurrentLevel;
 	m_Score = 0;
+}
+
+void Level::ResetLevel() 
+{
+//when player has died display reset button
 }
 
 void Level::LoadNextLevel()

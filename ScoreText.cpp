@@ -16,7 +16,7 @@ void ScoreText::ScaleToFit(float width)
 {
 	//set text size to screen size
 	//it does this by dividing the screen size by the textures width or height respectively
-	m_Text.setPosition(width / 2 - m_Text.getLocalBounds().width, 250);
+	m_Text.setPosition(width / 2 - m_Text.getLocalBounds().width, 500);
 }
 
 void ScoreText::UpdateScore(int _score)

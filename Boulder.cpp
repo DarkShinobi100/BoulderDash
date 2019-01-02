@@ -103,21 +103,9 @@ bool Boulder::ClearUnder(sf::Vector2i _Direction)
 
 		//if so(the thing is a player(not nullptr))
 		if (player != nullptr)
-		{	//TODO increase score
-
-			//check direction
-			if (_Direction == sf::Vector2i(1, 0))
-			{
-				//if moving right
-				//do NOTHING
-				return false;
-			}
-			//if down KILL them
-			{
-				return true;
-			}
+		{	
+			return true;
 		}
-
 		//is it a Boulder?
 		Boulder* boulder = dynamic_cast<Boulder*>(blocker);
 
@@ -173,12 +161,24 @@ bool Boulder::AttemptFall(sf::Vector2i _Direction)
 		//if so(the thing is a player(not nullptr))
 		if (player != nullptr)
 		{	
-			//touched player so they die
-			m_Level->ReloadLevel();
-			return m_Level->MoveObjectTo(this, TargetPos);
+			//check direction
+			if (_Direction == sf::Vector2i(1, 0))
+			{
+				//if moving right
+				//do NOTHING
+				return false;
+			}
+			//if down KILL them
+			{
+				//touched player so they die
+				//display reset button
+
+				m_Level->ReloadLevel();
+				//^placeholder for testing^
+
+				return m_Level->MoveObjectTo(this, TargetPos);
+			}
 		}
-		//if movement is blocked, do nothing, return false
-		return false;
 	}
 		//we were blocked!
 	//if movement is blocked, do nothing, return false
