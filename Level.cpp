@@ -304,7 +304,7 @@ void Level::ReloadLevel()
 
 void Level::ResetLevel() 
 {
-//when player has died display reset button
+//TODO when player has died display reset button
 }
 
 void Level::LoadNextLevel()

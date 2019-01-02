@@ -163,7 +163,7 @@ bool Boulder::AttemptFall(sf::Vector2i _Direction)
 		{	
 			//check direction
 			if (_Direction == sf::Vector2i(1, 0))
-			{
+			{//TODO troubleshoot ERROR where boulder kills via diagonal, due to going right & then down.
 				//if moving right
 				//do NOTHING
 				return false;
