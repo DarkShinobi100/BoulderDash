@@ -414,7 +414,7 @@ bool Level::CheckComplete()
 				//current object in the loop we are examining
 				GridObject* thisObject = m_Contents[y][x][z];
 
-				//check if it is a box via dynamic cast
+				//check if it is a Diamond via dynamic cast
 				Diamond* Gem = dynamic_cast<Diamond*>(thisObject);
 				if (Gem != nullptr)
 				{

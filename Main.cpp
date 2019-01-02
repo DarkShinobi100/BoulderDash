@@ -10,6 +10,9 @@
 #include "Framework/AssetManager.h"
 #include "Level.h"
 #include "Startscreen.h"
+#include "StartText.h"
+#include "TitleText.h"
+#include "ScoreText.h"
 
 // The main() Function - entry point for our program
 int main()
@@ -40,44 +43,18 @@ int main()
 	//create the start screen pic
 	Startscreen Start;
 	Start.ScaleToFit(gameWindow.getSize().x, gameWindow.getSize().y);
-	
-	//Create font
-	sf::Font gameFont;
-	gameFont.loadFromFile("fonts/mainfont.ttf");
 
+	TitleText TitleText;
+	TitleText.ScaleToFit(gameWindow.getSize().x);
 
-	//create Title
-	sf::Text titleText;
-	titleText.setFont(gameFont);
-	titleText.setString("BoulderDash-Rougelike Version");
-	titleText.setCharacterSize(50);
-	titleText.setFillColor(sf::Color::White);
-	titleText.setStyle(sf::Text::Bold | sf::Text::Italic);
-	titleText.setPosition(gameWindow.getSize().x / 2
-		- titleText.getLocalBounds().width / 2, 30);
+	StartText StartText;
+	StartText.ScaleToFit(gameWindow.getSize().x);
 
-	//setup Note Text 
-	sf::Text NoteText;
-	NoteText.setFont(gameFont);
-	NoteText.setString("Please Press enter");
-	NoteText.setCharacterSize(25);
-	NoteText.setFillColor(sf::Color::Cyan);
-
-	NoteText.setPosition(gameWindow.getSize().x / 2
-		- titleText.getLocalBounds().width / 2, gameWindow.getSize().y / 2
-		- titleText.getLocalBounds().height / 2);
+	ScoreText ScoreText;
+	ScoreText.ScaleToFit(gameWindow.getSize().x);
 	
 	//score 
 	int score = 0; //set score to 0
-
-    //setup score Text
-	sf::Text scoreText;
-	scoreText.setFont(gameFont);
-	scoreText.setString("Score: " + std::to_string(score));
-	scoreText.setCharacterSize(50);
-	scoreText.setFillColor(sf::Color::White);
-
-	scoreText.setPosition((gameWindow.getSize().x / 2) - 85, 200);
 
 	// -----------------------------------------------
 	// Game Loop
@@ -108,7 +85,8 @@ int main()
 
 				OurLevel.Input(gameEvent);
 				score = OurLevel.GetScore();
-				scoreText.setString("Score: " + std::to_string(score));
+				//update score on screen
+				ScoreText.UpdateScore(score);
 
 				// Did the player try to close the window?
 				if (gameEvent.type == sf::Event::Closed)
@@ -138,14 +116,14 @@ int main()
 		//check if the game has just started
 		if (GameStart)
 		{
-			//draw the start screen picture
+			//draw the start screen picture and Text
 			Start.Draw(gameWindow);
-			gameWindow.draw(titleText);
-			gameWindow.draw(NoteText);
+			TitleText.Draw(gameWindow);
+			StartText.Draw(gameWindow);
 		}
 		else
 		{
-			gameWindow.draw(scoreText);
+			ScoreText.Draw(gameWindow);
 			//pass Display to level
 			OurLevel.Draw(gameWindow);
 		}

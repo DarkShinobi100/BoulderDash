@@ -11,6 +11,6 @@ Startscreen::Startscreen()
 void Startscreen::ScaleToFit(float width, float hieght)
 {
 	//set sprite size to screen size
-	//it does this by diving the screen size by the textures width or height respectively
+	//it does this by dividing the screen size by the textures width or height respectively
 	m_Sprite.setScale(width / m_Sprite.getLocalBounds().width, hieght / m_Sprite.getLocalBounds().height);
 }

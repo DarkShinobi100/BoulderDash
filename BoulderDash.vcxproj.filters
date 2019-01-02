@@ -69,6 +69,15 @@
     <ClCompile Include="Startscreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TitleText.h.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StartText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Animation.h">
@@ -114,6 +123,15 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Startscreen.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleText.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StartText.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreText.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
