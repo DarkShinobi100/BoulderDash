@@ -112,8 +112,6 @@ bool Boulder::ClearUnder(sf::Vector2i _Direction)
 		//if so(the thing is a boulder(not nullptr))
 		if (boulder != nullptr)
 		{
-			//try and move right
-			AttemptFall(sf::Vector2i(1, 0));
 			return true;
 		}
 
@@ -161,15 +159,7 @@ bool Boulder::AttemptFall(sf::Vector2i _Direction)
 		//if so(the thing is a player(not nullptr))
 		if (player != nullptr)
 		{	
-			//check direction
-			if (_Direction == sf::Vector2i(1, 0))
-			{//TODO troubleshoot ERROR where boulder kills via diagonal, due to going right & then down.
-				//if moving right
-				//do NOTHING
-				return false;
-			}
-			//if down KILL them
-			{
+			
 				//touched player so they die
 				//display reset button
 
@@ -177,8 +167,35 @@ bool Boulder::AttemptFall(sf::Vector2i _Direction)
 				//^placeholder for testing^
 
 				return m_Level->MoveObjectTo(this, TargetPos);
-			}
 		}
+
+		//is it a boulder?
+		Boulder* boulder = dynamic_cast<Boulder*>(blocker);
+
+		//if so(the thing is a player(not nullptr))
+		if (boulder != nullptr)
+		{
+			//if diretion is down
+			if (_Direction == sf::Vector2i(0, 1))
+			{
+			//try and move right
+			AttemptFall(sf::Vector2i(1, 0));
+			}
+
+			else if (_Direction == sf::Vector2i(1, 0))
+			{
+				//else if direction is Right
+				//go left
+				AttemptFall(sf::Vector2i(-1, 0));
+			}
+			else
+			{
+				//do nothing
+				return false;
+			}
+
+		}
+
 	}
 		//we were blocked!
 	//if movement is blocked, do nothing, return false

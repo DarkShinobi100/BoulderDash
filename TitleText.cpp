@@ -16,5 +16,5 @@ void TitleText::ScaleToFit(float width)
 {
 	//set text size to screen size
 	//it does this by dividing the screen size by the textures width or height respectively
-	m_Text.setPosition((width - m_Text.getLocalBounds().width)- 85, 50);
+	m_Text.setPosition((width / m_Text.getLocalBounds().width) + (m_Text.getLocalBounds().width/2), 50);
 }

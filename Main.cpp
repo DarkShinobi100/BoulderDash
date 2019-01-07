@@ -78,6 +78,13 @@ int main()
 				{//now disable the start screen
 					GameStart = false;
 				}
+
+				// Did the player try to close the window?
+				if (gameEvent.type == sf::Event::Closed)
+				{
+					// If so, call the close function on the window.
+					gameWindow.close();
+				}
 			}
 			else
 			{
