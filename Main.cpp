@@ -13,6 +13,7 @@
 #include "StartText.h"
 #include "TitleText.h"
 #include "ScoreText.h"
+#include "ResetButton.h"
 
 // The main() Function - entry point for our program
 int main()
@@ -53,8 +54,9 @@ int main()
 	ScoreText ScoreText;
 	ScoreText.ScaleToFit(gameWindow.getSize().x);
 	
-	//score 
-	int score = 0; //set score to 0
+	ResetButton ResetButton;
+	ResetButton.PositionOnScreen(gameWindow.getSize().x, gameWindow.getSize().y);
+
 
 	// -----------------------------------------------
 	// Game Loop
@@ -91,7 +93,6 @@ int main()
 				// Pass event to input objects
 
 				OurLevel.Input(gameEvent);
-				score = OurLevel.GetScore();
 
 				// Did the player try to close the window?
 				if (gameEvent.type == sf::Event::Closed)

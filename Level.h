@@ -44,5 +44,6 @@ private:
 	std::vector< std::vector < std::vector< GridObject* > > > m_Contents;
 	bool m_DoorOpen;
 	int m_Score;
+	bool m_PlayerDead;
 	
 };

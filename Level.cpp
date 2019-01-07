@@ -9,6 +9,7 @@
 #include "Exit.h"
 #include "ResetButton.h"
 #include "ScoreText.h"
+#include "ResetButton.h"
 
 //library includes
 #include <iostream>
@@ -16,13 +17,14 @@
 
 Level::Level()
 	:m_CellSize(64.0f)
-	,m_BGM()
-	,m_CurrentLevel(0)
-	,m_PendingLevel(0)
-	,m_Background()
-	,m_Contents()
-	,m_DoorOpen(false)
-	,m_Score(0)
+	, m_BGM()
+	, m_CurrentLevel(0)
+	, m_PendingLevel(0)
+	, m_Background()
+	, m_Contents()
+	, m_DoorOpen(false)
+	, m_Score(0)
+	, m_PlayerDead(false)
 {
 	m_BGM.setBuffer(AssetManager::GetSoundBuffer("audio/BGM.ogg"));
 	m_BGM.setLoop(true);
@@ -76,6 +78,14 @@ void Level::Draw(sf::RenderTarget& _Target)
 
 	ScoreText.Draw(_Target);
 
+
+	if (m_PlayerDead)
+	{
+		//create Reset button
+		ResetButton ResetButton;
+		ResetButton.Draw(_Target);
+	}
+
 }
 
 
@@ -126,17 +136,31 @@ void Level::GridUpdate()
 
 void Level::Input(sf::Event _GameEvent)
 {
-	//Y = rows
-	for (int y = 0; y < m_Contents.size(); ++y)
+	//player dead?
+	if (m_PlayerDead == false)
 	{
-		//X = Cells
-		for (int x = 0; x < m_Contents[y].size(); ++x)
+		//Y = rows
+		for (int y = 0; y < m_Contents.size(); ++y)
 		{
-			//Z = stickoutty(GridObjects)
-			for (int z = 0; z < m_Contents[y][x].size(); ++z)
+			//X = Cells
+			for (int x = 0; x < m_Contents[y].size(); ++x)
 			{
-				m_Contents[y][x][z]->Input(_GameEvent);
+				//Z = stickoutty(GridObjects)
+				for (int z = 0; z < m_Contents[y][x].size(); ++z)
+				{
+					m_Contents[y][x][z]->Input(_GameEvent);
+				}
 			}
+		}
+	}
+	else
+	{
+		//create Reset button
+		ResetButton ResetButton;
+		//update reset button on screen
+		if (ResetButton.OnClicked(_GameEvent))
+		{
+			ReloadLevel();
 		}
 	}
 }
@@ -301,6 +325,7 @@ void Level::LoadLevel(int _LevelToLoad)
 
 	//close the file now that were done with it
 	inFile.close();
+	m_PlayerDead = false;
 	}
 
 void Level::ReloadLevel()
@@ -313,6 +338,7 @@ void Level::ReloadLevel()
 void Level::ResetLevel() 
 {
 //TODO when player has died display reset button
+	m_PlayerDead = true;
 }
 
 void Level::LoadNextLevel()

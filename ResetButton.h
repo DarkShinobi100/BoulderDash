@@ -8,8 +8,8 @@ class ResetButton : public GridObject
 
 public:
 	ResetButton();
-	void PositionOnScreen(float width);
+	void PositionOnScreen(float width, float height);
 
 	//function for when clicked run reset level
-	void OnClicked();
+	bool OnClicked(sf::Event _gameEvent);
 }; 

@@ -6,19 +6,24 @@
 ResetButton::ResetButton()
 	: GridObject()
 {
-	m_Sprite.setTexture(AssetManager::GetTexture("graphics/Start.png"));
+	m_Sprite.setTexture(AssetManager::GetTexture("graphics/button.png"));
 }
 
-void ResetButton::PositionOnScreen(float width)
+void ResetButton::PositionOnScreen(float width, float height)
 {
 	//set text size to screen size
 	//it does this by dividing the screen size by the textures width or height respectively
-	m_Sprite.setPosition(width / 2 - m_Sprite.getLocalBounds().width, 500);
+	m_Sprite.setPosition(width / 2 - m_Sprite.getLocalBounds().width, (height / 3 + m_Sprite.getLocalBounds().height) * 2);
 }
 
 //function for when clicked run reset level
-void ResetButton::OnClicked()
+bool ResetButton::OnClicked(sf::Event _gameEvent)
 {
+	if (m_Sprite.getGlobalBounds().contains(_gameEvent.mouseButton.x, _gameEvent.mouseButton.y))
+	{
+		
 	//function for when clicked run reset level
-	m_Level->ReloadLevel();
+		return true;
+	}
+	return false;
 }
