@@ -8,6 +8,7 @@
 #include "Boulder.h"
 #include "Exit.h"
 #include "ResetButton.h"
+#include "ScoreText.h"
 
 //library includes
 #include <iostream>
@@ -67,6 +68,13 @@ void Level::Draw(sf::RenderTarget& _Target)
 
 	// Reset view
 	_Target.setView(_Target.getDefaultView());
+
+	//create text
+	ScoreText ScoreText;
+	//update score on screen
+	ScoreText.UpdateScore(m_Score);
+
+	ScoreText.Draw(_Target);
 
 }
 
@@ -434,9 +442,6 @@ bool Level::CheckComplete()
 				Diamond* Gem = dynamic_cast<Diamond*>(thisObject);
 				if (Gem != nullptr)
 				{
-					//it WAS a Diamond!
-					m_Score = m_Score + 5;
-
 					//if a diamond exists
 					//leave
 					
@@ -482,6 +487,11 @@ bool Level::LevelComplete()
 bool Level::GetDoorOpen()
 {
 	return m_DoorOpen;
+}
+
+void Level::SetScore()
+{
+	m_Score = m_Score + 5;
 }
 
 int Level::GetScore()

@@ -157,10 +157,12 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 
 		//if so(the thing is a Diamond(not nullptr))
 		if (Gem != nullptr)
-		{	//TODO increase score
+		{	
 
 			//move to the new spot(where diamond was)
 			m_Level->DeleteObject(blocker);
+			//increase score
+			m_Level->SetScore();
 			//check if the level is complete
 			m_Level->CheckComplete();
 			return m_Level->MoveObjectTo(this, TargetPos);

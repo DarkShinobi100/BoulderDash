@@ -85,8 +85,6 @@ int main()
 
 				OurLevel.Input(gameEvent);
 				score = OurLevel.GetScore();
-				//update score on screen
-				ScoreText.UpdateScore(score);
 
 				// Did the player try to close the window?
 				if (gameEvent.type == sf::Event::Closed)
@@ -123,7 +121,6 @@ int main()
 		}
 		else
 		{
-			ScoreText.Draw(gameWindow);
 			//pass Display to level
 			OurLevel.Draw(gameWindow);
 		}

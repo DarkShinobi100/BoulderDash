@@ -31,6 +31,7 @@ public:
 	bool LevelComplete();
 
 	bool GetDoorOpen();
+	void SetScore();
 	int GetScore();
 
 private:

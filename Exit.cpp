@@ -20,8 +20,3 @@ void Exit::Update(sf::Time _FrameTime)
 	}
 }
 
-
-
-//check diamonds in level
-//change sprite in exit
-//tell player that door is open
