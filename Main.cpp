@@ -48,7 +48,7 @@ int main()
 	TitleText.ScaleToFit(gameWindow.getSize().x);
 
 	StartText StartText;
-	StartText.ScaleToFit(gameWindow.getSize().x);
+	StartText.ScaleToFit(gameWindow.getSize().x, gameWindow.getSize().y);
 
 	ScoreText ScoreText;
 	ScoreText.ScaleToFit(gameWindow.getSize().x);

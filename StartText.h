@@ -8,5 +8,5 @@ class StartText : public TextObject
 
 public:
 	StartText();
-	void ScaleToFit(float width);
+	void ScaleToFit(float width, float height);
 };

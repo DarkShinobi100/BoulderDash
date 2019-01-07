@@ -8,5 +8,5 @@ class Startscreen : public GridObject
 
 public:
 	Startscreen();
-	void ScaleToFit(float width,float hieght);
+	void ScaleToFit(float width,float height);
 };
