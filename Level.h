@@ -22,21 +22,26 @@ public:
 	//set window size from main
 	void SetWindowSize(sf::Vector2u _WindowSize);
 
+	//control levels
 	void LoadLevel(int _LevelToLoad);
 	void ReloadLevel();
 	void ResetLevel();
 
+	//set up and control grid objects
 	float GetCellSize();
 	bool MoveObjectTo(GridObject* _ToMove, sf::Vector2i _TargetPos);
 	bool DeleteObject(GridObject* _Todelete);
 	std::vector<GridObject* > GetObjectAt(sf::Vector2i _TargetPos);
 
+	//control level progression
 	bool CheckComplete();
 	bool LevelComplete();
 
+	//tell the Exit if the door is open or not
 	bool GetDoorOpen();
+
+	//update the player score
 	void SetScore();
-	int GetScore();
 
 private:
 	//private data
@@ -50,5 +55,6 @@ private:
 	bool m_PlayerDead;
 	ResetButton m_ResetButton;
 	ScoreText m_ScoreText;
-	
+	sf::Sound m_WinSound;
+	sf::Sound m_DeathSound;
 };

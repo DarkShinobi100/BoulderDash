@@ -43,9 +43,12 @@ bool Boulder::AttemptPush(sf::Vector2i _direction)
 	//if empty, move there
 	if (blocked == false)
 	{
+		//play sound effect
+		m_PushSound.play();
+		//move to free space
 		return m_Level->MoveObjectTo(this, TargetPos);
 	}
-	
+	return false;	
 }
 
 void Boulder::GridUpdate()
@@ -101,31 +104,16 @@ bool Boulder::ClearUnder(sf::Vector2i _Direction)
 	{
 		//is it a player?
 		Player* player = dynamic_cast<Player*>(blocker);
+		// OR is it a Boulder?
+		Boulder* boulder = dynamic_cast<Boulder*>(blocker);
+		//OR is it a diamond?
+		Diamond* gem = dynamic_cast<Diamond*>(blocker);
 
-		//if so(the thing is a player(not nullptr))
-		if (player != nullptr)
+		//if so(the thing is one of these(not nullptr))
+		if (player != nullptr || boulder != nullptr || gem != nullptr)
 		{	
 						return true;
 		}
-
-		//is it a Boulder?
-		Boulder* boulder = dynamic_cast<Boulder*>(blocker);
-
-		//if so(the thing is a boulder(not nullptr))
-		if (boulder != nullptr)
-		{
-			return true;
-		}
-
-		//is it a diamond?
-		Diamond* gem = dynamic_cast<Diamond*>(blocker);
-
-		//if so(the thing is a boulder(not nullptr))
-		if (gem != nullptr)
-		{
-			return true;
-		}
-
 		//if movement is blocked, do nothing, return false
 		return false;
 	}
@@ -181,18 +169,19 @@ bool Boulder::AttemptFall(sf::Vector2i _Direction)
 				return false;
 			}
 			
-				//touched player so they die
-				//display reset button
-				m_Level->ResetLevel();
-
-				return m_Level->MoveObjectTo(this, TargetPos);
+			//touched player so they die
+			//display reset button
+			m_Level->ResetLevel();
+			return m_Level->MoveObjectTo(this, TargetPos);
 		}
 
 		//is it a boulder?
 		Boulder* boulder = dynamic_cast<Boulder*>(blocker);
+		//is it a Diamond?
+		Diamond* gem = dynamic_cast<Diamond*>(blocker);
 
-		//if so(the thing is a player(not nullptr))
-		if (boulder != nullptr)
+		//if so(the thing is a obstacle(not nullptr))
+		if (boulder != nullptr || gem != nullptr)
 		{
 			//if diretion is down
 			if (_Direction == sf::Vector2i(0, 1))
@@ -209,39 +198,11 @@ bool Boulder::AttemptFall(sf::Vector2i _Direction)
 			}
 			else
 			{
-				//do nothing
+				//do nothing stop trying to move
 				return false;
 			}
 
 		}
-
-		//is it a boulder?
-		Diamond* gem = dynamic_cast<Diamond*>(blocker);
-
-		//if so(the thing is a player(not nullptr))
-		if (gem != nullptr)
-		{
-			//if diretion is down
-			if (_Direction == sf::Vector2i(0, 1))
-			{
-				//try and move right
-				AttemptFall(sf::Vector2i(1, 1));
-			}
-
-			else if (_Direction == sf::Vector2i(1, 1))
-			{
-				//else if direction is Right
-				//go left
-				AttemptFall(sf::Vector2i(-1, 1));
-			}
-			else
-			{
-				//do nothing
-				return false;
-			}
-
-		}
-
 	}
 		//we were blocked!
 	//if movement is blocked, do nothing, return false

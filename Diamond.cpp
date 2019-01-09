@@ -13,7 +13,9 @@ Diamond::Diamond()
 }
 
 void Diamond::GridUpdate()
-{
+{//allows turn based movement
+
+	//check if area underneath is blocked with mud or not
 	if (ClearUnder(sf::Vector2i(0, 1)))
 	{
 		//if skip move is true check this
@@ -22,6 +24,7 @@ void Diamond::GridUpdate()
 			//Call the AttemptFall function
 			//move in that direction
 			bool MoveSuccessful = AttemptFall(sf::Vector2i(0, 1));
+			//skip next turn
 			m_SkipMove = false;
 		}
 		else
@@ -36,8 +39,8 @@ bool Diamond::ClearUnder(sf::Vector2i _Direction)
 {
 	// Attempt to move in the given direction
 
-		//get the current position
-		//calculate the target position
+	//get the current position
+	//calculate the target position
 	sf::Vector2i TargetPos = m_GridPosition + _Direction;
 
 	// check if the space is empty
@@ -112,16 +115,14 @@ bool Diamond::AttemptFall(sf::Vector2i _Direction)
 
 		//if so(the thing is a player(not nullptr))
 		if (player != nullptr)
-		{	//TODO increase score
-
+		{
 			//touched player so they die
-			m_Level->ReloadLevel();
+			m_Level->ResetLevel();
 			return m_Level->MoveObjectTo(this, TargetPos);
 		}
 		//if movement is blocked, do nothing, return false
 		return false;
 	}
-	//we were blocked!
-//if movement is blocked, do nothing, return false
+    //if movement is blocked, do nothing, return false
 	return false;
 }

@@ -17,7 +17,7 @@ private:
 
 	bool AttemptFall(sf::Vector2i _Direction);
 
-	//data
+	//data keep private
 private:
 	sf::Sound m_PushSound;
 	bool m_SkipMove;

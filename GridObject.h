@@ -13,16 +13,13 @@ class GridObject : public SpriteObject
 public:
 
 	GridObject();
-
 	void SetGridPosition(sf::Vector2i _NewPosition);
 	
 	//overloaded function
 	void SetGridPosition(int _x,int _y);
 	bool GetBlockedMovement();
-
 	void SetLevel(Level* _NewLevel);
 	sf::Vector2i GetGridPosition();
-
 	virtual void GridUpdate();
 
 protected:

@@ -20,7 +20,6 @@ bool ResetButton::OnClicked(sf::Event _gameEvent)
 {
 	if (m_Sprite.getGlobalBounds().contains(_gameEvent.mouseButton.x, _gameEvent.mouseButton.y))
 	{
-		
 	//function for when clicked run reset level
 		return true;
 	}

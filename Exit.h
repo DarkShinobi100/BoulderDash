@@ -11,6 +11,4 @@ public:
 
 	//Overridding methods
 	void Update(sf::Time _FrameTime);
-
-
 };

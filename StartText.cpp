@@ -7,7 +7,7 @@ StartText::StartText()
 {
 	m_Text.setFont(AssetManager::GetFont("fonts/mainfont.ttf"));
 	m_Text.setCharacterSize(25);
-	m_Text.setFillColor(sf::Color::Cyan);
+	m_Text.setFillColor(sf::Color::White);
 	m_Text.setStyle(sf::Text::Bold | sf::Text::Italic);
 	m_Text.setString("Please Press enter");
 }

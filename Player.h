@@ -5,7 +5,7 @@
 
 class Player : public GridObject
 {
-
+	//functions
 public:
 	Player();
 
@@ -13,16 +13,16 @@ public:
 	void Input(sf::Event _GameEvent);
 	void Update(sf::Time _FrameTime);
 
-
 private:
 
 	bool AttemptMove(sf::Vector2i _Direction);
 
-	//Data
+	//Data keep private
 private:
 
 	sf::Vector2i m_PendingMove;
 	sf::Sound m_WalkSound;
 	sf::Sound m_BumpSound;
+	sf::Sound m_CollectSound;
 
 };

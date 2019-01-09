@@ -17,6 +17,7 @@ Player::Player()
 	m_Sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandDown.png"));
 	m_WalkSound.setBuffer(AssetManager::GetSoundBuffer("audio/footstep1.ogg"));
 	m_BumpSound.setBuffer(AssetManager::GetSoundBuffer("audio/bump.wav"));
+	m_CollectSound.setBuffer(AssetManager::GetSoundBuffer("audio/Collect.wav"));
 }
 
 void Player::Input(sf::Event _GameEvent)
@@ -33,7 +34,7 @@ void Player::Input(sf::Event _GameEvent)
 		//what key was pressed?
 		if (_GameEvent.key.code == sf::Keyboard::W || _GameEvent.key.code == sf::Keyboard::Up)
 		{
-			// it was W that was pressed
+			// it was W OR UP arrow key that was pressed
 			//move up
 			m_PendingMove = sf::Vector2i(0, -1);
 			m_Sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandUp.png"));
@@ -42,7 +43,7 @@ void Player::Input(sf::Event _GameEvent)
 		}
 		else if (_GameEvent.key.code == sf::Keyboard::A || _GameEvent.key.code == sf::Keyboard::Left)
 		{
-			// it was A that was pressed
+			// it was A OR left arrow key that was pressed
 			//move left
 			m_PendingMove = sf::Vector2i(-1, 0);
 			m_Sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandLeft.png"));
@@ -51,7 +52,7 @@ void Player::Input(sf::Event _GameEvent)
 		}
 		else if (_GameEvent.key.code == sf::Keyboard::S || _GameEvent.key.code == sf::Keyboard::Down)
 		{
-			// it was S that was pressed
+			// it was S OR down arrow keythat was pressed
 			//move down
 			m_PendingMove = sf::Vector2i(0, 1);
 			m_Sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandDown.png"));
@@ -60,7 +61,7 @@ void Player::Input(sf::Event _GameEvent)
 		}
 		else if (_GameEvent.key.code == sf::Keyboard::D || _GameEvent.key.code == sf::Keyboard::Right)
 		{
-			// it was D that was pressed
+			// it was D OR right arrow key that was pressed
 			//move Right
 			m_PendingMove = sf::Vector2i(1, 0);
 			m_Sprite.setTexture(AssetManager::GetTexture("graphics/player/playerStandRight.png"));
@@ -124,7 +125,7 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 	{
 		//we were blocked!
 		//can we push whatever blocked us?
-		//do a dynamic cast to a box to see if we can push it
+		//do a dynamic cast to a boulder to see if we can push it
 		Boulder* rock = dynamic_cast<Boulder*>(blocker);
 
 		//if so(the thing is a boulder(not nullptr))
@@ -147,9 +148,9 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 		//if so(the thing is a mud(not nullptr))
 		if (Dirt != nullptr)
 		{
-				//move to the new spot(where mud was)
-				m_Level->DeleteObject(blocker);
-				return m_Level->MoveObjectTo(this, TargetPos);
+			//move to the new spot(where mud was)
+			m_Level->DeleteObject(blocker);
+			return m_Level->MoveObjectTo(this, TargetPos);
 		}
 
 		//OR is it a diamond?
@@ -163,22 +164,20 @@ bool Player::AttemptMove(sf::Vector2i _Direction)
 			m_Level->DeleteObject(blocker);
 			//increase score
 			m_Level->SetScore();
+			//play jingle
+			m_CollectSound.play();
 			//check if the level is complete
 			m_Level->CheckComplete();
 			return m_Level->MoveObjectTo(this, TargetPos);
 		}
-		//OR is it the exit
+		//OR is it the Exit
 		Exit* Door = dynamic_cast<Exit*>(blocker);
 
-		//if so(the thing is the Exit(not nullptr))
-		if (Door != nullptr)
+		//if so(the thing is the Exit(not nullptr)) AND check if it's open
+		if (Door != nullptr && m_Level->LevelComplete())
 		{
-			//check if it is open
-			if (m_Level->LevelComplete())
-			{
-				//go there and finish the level
-				return m_Level->MoveObjectTo(this, TargetPos);
-			}
+			//go there and finish the level
+			return m_Level->MoveObjectTo(this, TargetPos);
 		}
 
 	}

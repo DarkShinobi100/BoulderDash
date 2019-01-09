@@ -5,7 +5,7 @@
 
 class Startscreen : public GridObject
 {
-
+	//functions
 public:
 	Startscreen();
 	void ScaleToFit(float width,float height);

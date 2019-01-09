@@ -26,6 +26,8 @@ Level::Level()
 	, m_ResetButton()
 	, m_ScoreText()
 {
+	m_WinSound.setBuffer(AssetManager::GetSoundBuffer("audio/Win.wav"));
+	m_DeathSound.setBuffer(AssetManager::GetSoundBuffer("audio/Death.wav"));
 	LoadLevel(1);
 }
 
@@ -156,6 +158,7 @@ void Level::Input(sf::Event _GameEvent)
 
 void Level::SetWindowSize(sf::Vector2u _WindowSize)
 {
+	//send window dimensions to functions that control sprite positions
 	m_ResetButton.PositionOnScreen(_WindowSize.x, _WindowSize.y);
 	m_ScoreText.PositionOnScreen(_WindowSize.x, _WindowSize.y);
 }
@@ -324,6 +327,8 @@ void Level::ReloadLevel()
 
 void Level::ResetLevel() 
 {
+	//play sound effect
+	sf::Sound m_DeathSound;
 	m_PlayerDead = true;
 }
 
@@ -466,7 +471,7 @@ bool Level::CheckComplete()
 	//but must touch the exit first
 
 	// play victory music
-	//m_winSound.play();
+	m_WinSound.play();
 
 	//change Exit sprite via setting m_doorOpen to true
 	m_DoorOpen = true;
@@ -499,9 +504,4 @@ bool Level::GetDoorOpen()
 void Level::SetScore()
 {
 	m_Score = m_Score + 5;
-}
-
-int Level::GetScore()
-{
-	return m_Score;
 }
