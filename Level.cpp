@@ -328,7 +328,7 @@ void Level::ReloadLevel()
 void Level::ResetLevel() 
 {
 	//play sound effect
-	sf::Sound m_DeathSound;
+	m_DeathSound.play();
 	m_PlayerDead = true;
 }
 
