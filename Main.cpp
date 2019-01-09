@@ -12,8 +12,6 @@
 #include "Startscreen.h"
 #include "StartText.h"
 #include "TitleText.h"
-#include "ScoreText.h"
-#include "ResetButton.h"
 
 // The main() Function - entry point for our program
 int main()
@@ -37,6 +35,7 @@ int main()
 
 	//Create the game level
 	Level OurLevel;
+	OurLevel.SetWindowSize(gameWindow.getSize());
 
 	//set up game start
 	bool GameStart = true;
@@ -51,13 +50,7 @@ int main()
 
 	StartText StartText;
 	StartText.ScaleToFit(gameWindow.getSize().x, gameWindow.getSize().y);
-
-	ScoreText ScoreText;
-	ScoreText.ScaleToFit(gameWindow.getSize().x);
 	
-	ResetButton ResetButton;
-	ResetButton.PositionOnScreen(gameWindow.getSize().x, gameWindow.getSize().y);
-
 
 	// -----------------------------------------------
 	// Game Loop

@@ -12,11 +12,11 @@ ScoreText::ScoreText()
 	m_Text.setString("Score: 0");
 }
 
-void ScoreText::ScaleToFit(float width)
+void ScoreText::PositionOnScreen(float width, float height)
 {
 	//set text size to screen size
 	//it does this by dividing the screen size by the textures width or height respectively
-	m_Text.setPosition(width / 2 - m_Text.getLocalBounds().width, 500);
+	m_Text.setPosition(width / 2 - m_Text.getLocalBounds().width, height - m_Text.getLocalBounds().height * 4);
 }
 
 void ScoreText::UpdateScore(int _score)

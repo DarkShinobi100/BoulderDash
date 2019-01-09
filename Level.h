@@ -5,6 +5,8 @@
 
 //project includes
 #include "GridObject.h"
+#include "ResetButton.h"
+#include "ScoreText.h"
 
 class Level
 {
@@ -17,10 +19,12 @@ public:
 	void GridUpdate();
 	void Input(sf::Event _GameEvent);
 
+	//set window size from main
+	void SetWindowSize(sf::Vector2u _WindowSize);
+
 	void LoadLevel(int _LevelToLoad);
 	void ReloadLevel();
 	void ResetLevel();
-	void LoadNextLevel();
 
 	float GetCellSize();
 	bool MoveObjectTo(GridObject* _ToMove, sf::Vector2i _TargetPos);
@@ -35,7 +39,7 @@ public:
 	int GetScore();
 
 private:
-
+	//private data
 	const float m_CellSize;
 	int m_CurrentLevel;
 	int m_PendingLevel;
@@ -44,5 +48,7 @@ private:
 	bool m_DoorOpen;
 	int m_Score;
 	bool m_PlayerDead;
+	ResetButton m_ResetButton;
+	ScoreText m_ScoreText;
 	
 };

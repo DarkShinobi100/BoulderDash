@@ -4,6 +4,7 @@
 #include "Level.h"
 #include "Mud.h"
 #include "Player.h"
+#include "Diamond.h"
 
 Boulder::Boulder()
 	: GridObject()
@@ -104,13 +105,23 @@ bool Boulder::ClearUnder(sf::Vector2i _Direction)
 		//if so(the thing is a player(not nullptr))
 		if (player != nullptr)
 		{	
-			return true;
+						return true;
 		}
+
 		//is it a Boulder?
 		Boulder* boulder = dynamic_cast<Boulder*>(blocker);
 
 		//if so(the thing is a boulder(not nullptr))
 		if (boulder != nullptr)
+		{
+			return true;
+		}
+
+		//is it a diamond?
+		Diamond* gem = dynamic_cast<Diamond*>(blocker);
+
+		//if so(the thing is a boulder(not nullptr))
+		if (gem != nullptr)
 		{
 			return true;
 		}
@@ -159,14 +170,19 @@ bool Boulder::AttemptFall(sf::Vector2i _Direction)
 		//if so(the thing is a player(not nullptr))
 		if (player != nullptr)
 		{	
+			//is the boulder moving right
+			if (_Direction == sf::Vector2i(1, 1))
+			{//don't slide into the player
+				return false;
+			}
+			//are we moving left
+			if (_Direction == sf::Vector2i(-1, 1))
+			{//don't slide into the player
+				return false;
+			}
 			
 				//touched player so they die
 				//display reset button
-
-				//m_Level->ReloadLevel();
-				//^placeholder for testing^
-
-
 				m_Level->ResetLevel();
 				return m_Level->MoveObjectTo(this, TargetPos);
 		}
@@ -181,14 +197,41 @@ bool Boulder::AttemptFall(sf::Vector2i _Direction)
 			if (_Direction == sf::Vector2i(0, 1))
 			{
 			//try and move right
-			AttemptFall(sf::Vector2i(1, 0));
+			AttemptFall(sf::Vector2i(1, 1));
 			}
 
-			else if (_Direction == sf::Vector2i(1, 0))
+			else if (_Direction == sf::Vector2i(1, 1))
 			{
 				//else if direction is Right
 				//go left
-				AttemptFall(sf::Vector2i(-1, 0));
+				AttemptFall(sf::Vector2i(-1, 1));
+			}
+			else
+			{
+				//do nothing
+				return false;
+			}
+
+		}
+
+		//is it a boulder?
+		Diamond* gem = dynamic_cast<Diamond*>(blocker);
+
+		//if so(the thing is a player(not nullptr))
+		if (gem != nullptr)
+		{
+			//if diretion is down
+			if (_Direction == sf::Vector2i(0, 1))
+			{
+				//try and move right
+				AttemptFall(sf::Vector2i(1, 1));
+			}
+
+			else if (_Direction == sf::Vector2i(1, 1))
+			{
+				//else if direction is Right
+				//go left
+				AttemptFall(sf::Vector2i(-1, 1));
 			}
 			else
 			{

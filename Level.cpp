@@ -9,7 +9,6 @@
 #include "Exit.h"
 #include "ResetButton.h"
 #include "ScoreText.h"
-#include "ResetButton.h"
 
 //library includes
 #include <iostream>
@@ -24,6 +23,8 @@ Level::Level()
 	, m_DoorOpen(false)
 	, m_Score(0)
 	, m_PlayerDead(false)
+	, m_ResetButton()
+	, m_ScoreText()
 {
 	LoadLevel(1);
 }
@@ -63,24 +64,14 @@ void Level::Draw(sf::RenderTarget& _Target)
 		}
 	}
 
-	//TODO Adjust camera as needed
-
 	// Reset view
 	_Target.setView(_Target.getDefaultView());
 
-	//create text
-	ScoreText ScoreText;
-	//update score on screen
-	ScoreText.UpdateScore(m_Score);
-
-	ScoreText.Draw(_Target);
-
-
+	m_ScoreText.Draw(_Target);
+	
 	if (m_PlayerDead)
 	{
-		//create Reset button
-		ResetButton ResetButton;
-		ResetButton.Draw(_Target);
+		m_ResetButton.Draw(_Target);
 	}
 
 }
@@ -109,6 +100,9 @@ void Level::Update(sf::Time _FrameTime)
 		//remove pending level
 		m_PendingLevel = 0;
 	}
+	//update score on screen
+	m_ScoreText.UpdateScore(m_Score);
+
 }
 
 void Level::GridUpdate()
@@ -152,14 +146,18 @@ void Level::Input(sf::Event _GameEvent)
 	}
 	else
 	{
-		//create Reset button
-		ResetButton ResetButton;
 		//update reset button on screen
-		if (ResetButton.OnClicked(_GameEvent))
+		if (m_ResetButton.OnClicked(_GameEvent))
 		{
 			ReloadLevel();
 		}
 	}
+}
+
+void Level::SetWindowSize(sf::Vector2u _WindowSize)
+{
+	m_ResetButton.PositionOnScreen(_WindowSize.x, _WindowSize.y);
+	m_ScoreText.PositionOnScreen(_WindowSize.x, _WindowSize.y);
 }
 
 void Level::LoadLevel(int _LevelToLoad)
@@ -326,13 +324,7 @@ void Level::ReloadLevel()
 
 void Level::ResetLevel() 
 {
-//TODO when player has died display reset button
 	m_PlayerDead = true;
-}
-
-void Level::LoadNextLevel()
-{
-	LoadLevel(m_CurrentLevel + 1);
 }
 
 float Level::GetCellSize()
