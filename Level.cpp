@@ -17,7 +17,6 @@
 
 Level::Level()
 	:m_CellSize(64.0f)
-	, m_BGM()
 	, m_CurrentLevel(0)
 	, m_PendingLevel(0)
 	, m_Background()
@@ -26,8 +25,6 @@ Level::Level()
 	, m_Score(0)
 	, m_PlayerDead(false)
 {
-	m_BGM.setBuffer(AssetManager::GetSoundBuffer("audio/BGM.ogg"));
-	m_BGM.setLoop(true);
 	LoadLevel(1);
 }
 
@@ -191,14 +188,6 @@ void Level::LoadLevel(int _LevelToLoad)
 
 	//set the current level
 	m_CurrentLevel = _LevelToLoad;
-
-
-	if (m_CurrentLevel == 1)
-	{
-
-		//start music
-		m_BGM.play();
-	}
 
 	//-=Set up the new level=-
 

@@ -41,9 +41,10 @@ int main()
 	//set up game start
 	bool GameStart = true;
 
-	//create the start screen pic
+	//create the start screen pic and play BGM
 	Startscreen Start;
 	Start.ScaleToFit(gameWindow.getSize().x, gameWindow.getSize().y);
+	Start.StartMusic();
 
 	TitleText TitleText;
 	TitleText.ScaleToFit(gameWindow.getSize().x);

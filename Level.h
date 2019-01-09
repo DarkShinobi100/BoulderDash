@@ -37,7 +37,6 @@ public:
 private:
 
 	const float m_CellSize;
-	sf::Sound m_BGM;
 	int m_CurrentLevel;
 	int m_PendingLevel;
 	std::vector< std::vector < sf::Sprite > > m_Background;
