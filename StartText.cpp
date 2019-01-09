@@ -16,5 +16,5 @@ void StartText::ScaleToFit(float width, float height)
 {
 	//set text size to screen size
 	//it does this by dividing the screen size by the textures width or height respectively
-	m_Text.setPosition(width / 2 - m_Text.getLocalBounds().width, (height / 3 + m_Text.getLocalBounds().height)*2);
+	m_Text.setPosition(width / 2 - m_Text.getLocalBounds().width /2 , (height / 3 + m_Text.getLocalBounds().height)*2);
 }

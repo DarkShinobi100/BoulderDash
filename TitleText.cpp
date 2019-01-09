@@ -9,12 +9,12 @@ TitleText::TitleText()
 	m_Text.setCharacterSize(50);
 	m_Text.setFillColor(sf::Color::White);
 	m_Text.setStyle(sf::Text::Bold | sf::Text::Italic);
-	m_Text.setString("BoulderDash-Rougelike Version");
+	m_Text.setString("BoulderDash Rougelike Version");
 }
 
 void TitleText::ScaleToFit(float width)
 {
 	//set text size to screen size
 	//it does this by dividing the screen size by the textures width or height respectively
-	m_Text.setPosition((width / m_Text.getLocalBounds().width) + (m_Text.getLocalBounds().width/2), 50);
+	m_Text.setPosition((width / 2) - (m_Text.getLocalBounds().width/2), 50);
 }
