@@ -173,6 +173,7 @@ bool Boulder::AttemptFall(sf::Vector2i _Direction)
 				return true;
 			}
 			
+			m_Level->MoveObjectTo(this, TargetPos);
 			//touched player so they die
 			//display reset button
 			m_Level->ResetLevel();
