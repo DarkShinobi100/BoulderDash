@@ -160,13 +160,17 @@ bool Boulder::AttemptFall(sf::Vector2i _Direction)
 		{	
 			//is the boulder moving right
 			if (_Direction == sf::Vector2i(1, 1))
-			{//don't slide into the player
-				return false;
+			{//do slide into the player
+			    m_Level->MoveObjectTo(this, TargetPos);
+				m_Level->ResetLevel();
+				return true;
 			}
 			//are we moving left
 			if (_Direction == sf::Vector2i(-1, 1))
-			{//don't slide into the player
-				return false;
+			{//do slide into the player
+				m_Level->MoveObjectTo(this, TargetPos);
+				m_Level->ResetLevel();
+				return true;
 			}
 			
 			//touched player so they die
@@ -179,9 +183,11 @@ bool Boulder::AttemptFall(sf::Vector2i _Direction)
 		Boulder* boulder = dynamic_cast<Boulder*>(blocker);
 		//is it a Diamond?
 		Diamond* gem = dynamic_cast<Diamond*>(blocker);
+		//is it a mud?
+		Mud* dirt = dynamic_cast<Mud*>(blocker);
 
 		//if so(the thing is a obstacle(not nullptr))
-		if (boulder != nullptr || gem != nullptr)
+		if (boulder != nullptr || gem != nullptr || dirt !=nullptr)
 		{
 			//if diretion is down
 			if (_Direction == sf::Vector2i(0, 1))
@@ -196,7 +202,7 @@ bool Boulder::AttemptFall(sf::Vector2i _Direction)
 				//go left
 				AttemptFall(sf::Vector2i(-1, 1));
 			}
-			else
+			else if(_Direction == sf::Vector2i(-1, 1))
 			{
 				//do nothing stop trying to move
 				return false;
